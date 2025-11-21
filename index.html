@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devonic Folkin - Presensi Live</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #d3edff 0%, #a2ffe3 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #1a202c;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c2c2c 0%, #2c2c2c 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: 16px;
+            padding: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        h1 {
+            color: white;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: inline-block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f7fafc;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f7fafc;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            background: #edf2f7;
+            border-color: #cbd5e0;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: normal;
+            color: #2d3748;
+        }
+
+        .backup-input {
+            margin-top: 12px;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            background: #f7fafc;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .radio-item:hover {
+            background: #edf2f7;
+            border-color: #cbd5e0;
+        }
+
+        .radio-item input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .radio-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: normal;
+            color: #2d3748;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #1b1b1b 0%, #1b1b1b 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(39, 39, 39, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(32, 32, 32, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #48bb78;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                border-radius: 16px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="logo.png" alt="Devonic Folkin Logo">
+            </div>
+            <h1>Devonic Folkin<br>Absensi Live</h1>
+        </div>
+
+        <div class="content">
+            <form id="absensiForm">
+                <div class="form-group">
+                    <label>Tanggal</label>
+                    <input type="date" id="tanggal" required>
+                </div>
+
+                <!-- Live Shopping Section -->
+                <div class="section">
+                    <h2 class="section-title">Live Shopping</h2>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tibo" name="liveShopping" value="Tibo">
+                            <label for="tibo">Tibo</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ashby" name="liveShopping" value="Ashby">
+                            <label for="ashby">Ashby</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tisna" name="liveShopping" value="Tisna">
+                            <label for="tisna">Tisna</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="opoyz" name="liveShopping" value="Opoyz">
+                            <label for="opoyz">Opoyz</label>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group" style="margin-top: 20px;">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="backup" name="backup" value="Backup">
+                            <label for="backup">Backup</label>
+                        </div>
+                    </div>
+
+                    <div id="backupInput" class="backup-input hidden">
+                        <label>Nama yang Backup</label>
+                        <input type="text" id="backupName" placeholder="Masukkan nama yang backup">
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Live Apa?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="angelic" name="liveType" value="Angelic">
+                                <label for="angelic">Angelic</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="meart" name="liveType" value="Meart">
+                                <label for="meart">Meart</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="lainnya" name="liveType" value="Lainnya">
+                                <label for="lainnya">Lainnya</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="lainnyaInput" class="backup-input hidden">
+                        <label>Sebutkan</label>
+                        <input type="text" id="lainnyaName" placeholder="Masukkan nama live">
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Sesi Live</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="sesi1" name="sesiLive" value="Sesi 1">
+                                <label for="sesi1">Sesi 1</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="sesi2" name="sesiLive" value="Sesi 2">
+                                <label for="sesi2">Sesi 2</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="sesi3" name="sesiLive" value="Sesi 3 (Event)">
+                                <label for="sesi3">Sesi 3 (Event)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">GAS LIVE</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle backup input
+        document.getElementById('backup').addEventListener('change', function() {
+            const backupInput = document.getElementById('backupInput');
+            if (this.checked) {
+                backupInput.classList.remove('hidden');
+            } else {
+                backupInput.classList.add('hidden');
+                document.getElementById('backupName').value = '';
+            }
+        });
+
+        // Toggle lainnya input
+        document.getElementById('lainnya').addEventListener('change', function() {
+            const lainnyaInput = document.getElementById('lainnyaInput');
+            if (this.checked) {
+                lainnyaInput.classList.remove('hidden');
+            } else {
+                lainnyaInput.classList.add('hidden');
+                document.getElementById('lainnyaName').value = '';
+            }
+        });
+
+        // Hide lainnya input when other radio buttons are selected
+        document.querySelectorAll('input[name="liveType"]').forEach(radio => {
+            if (radio.id !== 'lainnya') {
+                radio.addEventListener('change', function() {
+                    if (this.checked) {
+                        document.getElementById('lainnyaInput').classList.add('hidden');
+                        document.getElementById('lainnyaName').value = '';
+                    }
+                });
+            }
+        });
+
+        // Set default date to today
+        document.getElementById('tanggal').valueAsDate = new Date();
+
+        // Form submission
+        document.getElementById('absensiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect form data
+            const tanggal = document.getElementById('tanggal').value;
+            
+            const liveShopping = Array.from(document.querySelectorAll('input[name="liveShopping"]:checked'))
+                .map(cb => cb.value).join(', ');
+            
+            const backup = document.getElementById('backup').checked;
+            const backupName = backup ? document.getElementById('backupName').value : '';
+            
+            const liveType = document.querySelector('input[name="liveType"]:checked');
+            let liveApa = liveType ? liveType.value : '';
+            if (liveApa === 'Lainnya') {
+                liveApa = document.getElementById('lainnyaName').value;
+            }
+            
+            const sesiLive = Array.from(document.querySelectorAll('input[name="sesiLive"]:checked'))
+                .map(cb => cb.value).join(', ');
+            
+            const kontenKreator = Array.from(document.querySelectorAll('input[name="kontenKreator"]:checked'))
+                .map(cb => cb.value).join(', ');
+
+            // Prepare data for Google Sheets
+            const formData = {
+                tanggal: tanggal,
+                liveShopping: liveShopping,
+                backup: backup ? 'Ya' : 'Tidak',
+                backupName: backupName,
+                liveApa: liveApa,
+                sesiLive: sesiLive,
+                timestamp: new Date().toLocaleString('id-ID')
+            };
+
+            console.log('Data yang akan dikirim:', formData);
+
+            fetch('https://script.google.com/macros/s/AKfycbzCGHRObhX4RJ4lOPhXT7yXHmNQ63y269Pt10ndXR6TiV6zHpeDkH98izWP3LNlBYJe/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData)
+})
+.then(() => {
+    showSuccess();
+    document.getElementById('absensiForm').reset();
+    document.getElementById('tanggal').valueAsDate = new Date();
+    document.getElementById('backupInput').classList.add('hidden');
+    document.getElementById('lainnyaInput').classList.add('hidden');
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('Terjadi kesalahan saat mengirim data');
+});
+            // For demo purposes
+            showSuccess();
+            setTimeout(() => {
+                document.getElementById('absensiForm').reset();
+                document.getElementById('tanggal').valueAsDate = new Date();
+                document.getElementById('backupInput').classList.add('hidden');
+                document.getElementById('lainnyaInput').classList.add('hidden');
+            }, 1000);
+        });
+
+        function showSuccess() {
+            const message = document.createElement('div');
+            message.className = 'success-message';
+            message.textContent = '✓ Absensi berhasil disimpan!';
+            document.body.appendChild(message);
+
+            setTimeout(() => {
+                message.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
