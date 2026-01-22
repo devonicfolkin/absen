@@ -323,8 +323,8 @@
                             <label for="ashby">Ashby</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="julian" name="liveShopping" value="Julian">
-                            <label for="julian">Julian</label>
+                            <input type="checkbox" id="tisna" name="liveShopping" value="Tisna">
+                            <label for="tisna">SASA</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="opoyz" name="liveShopping" value="Opoyz">
@@ -381,22 +381,10 @@
                             <div class="checkbox-item">
                                 <input type="checkbox" id="sesi3" name="sesiLive" value="Sesi 3 (Event)">
                                 <label for="sesi3">Sesi 3 (Event)</label>
-
                             </div>
                         </div>
                     </div>
-		<div class="form-group" style="margin-top: 20px;">
-    				<label>Jumlah Penjualan</label>
-   				 <input 
-       					 type="number"
-       					 id="jumlahPenjualan"
-      					 placeholder="Masukkan angka saja"
-       					 min="0"
-       					 step="1"
-       					 required
-    						>
-		</div>
-       
+                </div>
 
                 <button type="submit" class="submit-btn">GAS LIVE</button>
             </form>
@@ -462,9 +450,6 @@
             
             const sesiLive = Array.from(document.querySelectorAll('input[name="sesiLive"]:checked'))
                 .map(cb => cb.value).join(', ');
-	
-		const jumlahPenjualan = document.getElementById('jumlahPenjualan').value;
-
             
             const kontenKreator = Array.from(document.querySelectorAll('input[name="kontenKreator"]:checked'))
                 .map(cb => cb.value).join(', ');
@@ -477,9 +462,7 @@
                 backupName: backupName,
                 liveApa: liveApa,
                 sesiLive: sesiLive,
-                jumlahPenjualan: jumlahPenjualan,
-		timestamp: new Date().toLocaleString('id-ID')
-
+                timestamp: new Date().toLocaleString('id-ID')
             };
 
             console.log('Data yang akan dikirim:', formData);
@@ -495,7 +478,6 @@
 .then(() => {
     showSuccess();
     document.getElementById('absensiForm').reset();
-    document.getElementById('jumlahPenjualan').value = '';
     document.getElementById('tanggal').valueAsDate = new Date();
     document.getElementById('backupInput').classList.add('hidden');
     document.getElementById('lainnyaInput').classList.add('hidden');
@@ -508,7 +490,6 @@
             showSuccess();
             setTimeout(() => {
                 document.getElementById('absensiForm').reset();
-		document.getElementById('jumlahPenjualan').value = '';
                 document.getElementById('tanggal').valueAsDate = new Date();
                 document.getElementById('backupInput').classList.add('hidden');
                 document.getElementById('lainnyaInput').classList.add('hidden');
